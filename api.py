@@ -215,10 +215,17 @@ def compare_faces(known_face_encodings, face_encoding_to_check, tolerance=0.6):
     """
     return list(face_distance(known_face_encodings, face_encoding_to_check) <= tolerance)
 
-def ear(face_image):
+def ear(eye):
     """
     Given an image, returns the eye-aspect-ratio(ear)
-    :param face_image: image to search
+    :param eye: one eye from face_landmarks()
     :return: eye-aspect-ratio
     """
-    #Add here later
+    #vertical
+    A = dist.euclidean(eye[1], eye[5])
+    B = dist.euclidean(eye[2], eye[4])
+    # horizontal
+    C = dist.euclidean(eye[0], eye[3])
+    ear = (A + B) / (2.0 * C)
+    # return the eye aspect ratio
+    return ear
